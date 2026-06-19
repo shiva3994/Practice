@@ -246,3 +246,30 @@ SELECT
 FROM patients
 GROUP BY city
 ORDER BY num_patients DESC, city asc;
+
+-- Show the city and the total number of patients in the city.
+-- Order from most to least patients and then by city name ascending.
+
+select
+      city,
+      COUNT(*) AS num_patients
+from patients
+
+group by city
+ORDER BY num_patients desc, city;
+
+-- Show first name, last name and role of every person that is either patient or doctor.
+-- The roles are either "Patient" or "Doctor"
+
+SELECT first_name, 
+	   last_name, 
+       'Patient' as role 
+FROM patients
+
+union all
+
+select first_name, 
+	   last_name, 
+       'Doctor' from doctors;
+
+
