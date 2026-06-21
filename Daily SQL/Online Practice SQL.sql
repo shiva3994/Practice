@@ -314,9 +314,38 @@ WHERE year(birth_date) between 1970 and 1979
 
 order by birth_date;
 
+-- We want to display each patient's full name in a single column. Their last_name in all upper letters must appear first, then first_name in all lower case letters.
+-- Separate the last_name and first_name with a comma. Order the list by the first_name in decending order EX: SMITH,jane
 
+SELECT
+		concat(upper(last_name),',',lower(first_name))
+from patients
+order by first_name desc;
 
+-- Show the province_id(s), sum of height; where the total sum of its patient's height is greater than or equal to 7,000.
 
+SELECT
+		province_id,
+        sum(height) as sum_height
+        
+from patients
+group by province_id
+having sum_height > 7000;
 
+-- Show the difference between the largest weight and smallest weight for patients with the last name 'Maroni' 
 
+select
+		max(weight) - min(weight) as weight_difference
+from patients
+where last_name = 'Maroni';
+
+-- Show all of the days of the month (1-31) and how many admission_dates occurred on that day. Sort by the day with most admissions to least admissions.
+
+select
+		Day(admission_date) as day_number,
+        count(*) as number_of_admission
+        
+from admissions
+group by day_number
+order by number_of_admission desc;
 
