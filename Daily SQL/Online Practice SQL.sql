@@ -349,3 +349,48 @@ from admissions
 group by day_number
 order by number_of_admission desc;
 
+-- Show the province_id(s), sum of height; where the total sum of its patient's height is greater than or equal to 7,000.
+
+SELECT
+		province_id,
+        sum(height) as sum_height
+from patients
+group by province_id
+having sum_height > 7000;
+
+-- Show all columns for patient_id 542's most recent admission_date.
+
+select * from admissions
+where patient_id = 542
+order by admission_date desc
+limit 1;
+
+-- OR 
+
+SELECT *
+FROM admissions
+WHERE patient_id = 542
+GROUP BY patient_id
+HAVING
+	   admission_date = MAX(admission_date);
+
+-- Show patient_id, attending_doctor_id, and diagnosis for admissions that match one of the two criteria:
+-- 1. patient_id is an odd number and attending_doctor_id is either 1, 5, or 19.
+-- 2. attending_doctor_id contains a 2 and the length of patient_id is 3 characters.
+
+SELECT
+  patient_id,
+  attending_doctor_id,
+  diagnosis
+FROM admissions
+WHERE
+  (
+    attending_doctor_id IN (1, 5, 19)
+    AND patient_id % 2 != 0
+  )
+  OR 
+  (
+    attending_doctor_id LIKE '%2%'
+    AND len(patient_id) = 3
+  )
+
