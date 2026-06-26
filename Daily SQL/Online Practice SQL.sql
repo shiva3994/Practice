@@ -491,7 +491,7 @@ select
             THEN 'MALE' 
             ELSE 'FEMALE' END 
             AS 'gender_type'
-from patients;
+from patients ;
 
 -- Show patient_id, first_name, last_name from patients whose does not have any records in the admissions table. 
 -- (Their patient_id does not exist in any admissions.patient_id rows.)
@@ -517,9 +517,48 @@ group by weight_group
 order by weight_group desc;
 
 
+-- Display patient's full name,
+-- height in the units feet rounded to 1 decimal,
+-- weight in the unit pounds rounded to 0 decimals,
+-- birth_date,
+-- gender non abbreviated.
+-- Convert CM to feet by dividing by 30.48.
+-- Convert KG to pounds by multiplying by 2.205.
 
+SELECT 
+		concat(first_name,' ',last_name) as full_name,
+        round(height/30.48,1) as height,
+        round(weight*2.205,0) as weight,
+        birth_date,
+        case
+        	when gender = "M"
+            then "Male"
+            else "Female"
+            End as gender_type
+            
+from patients;
 
+-- Show patient_id, first_name, last_name from patients whose does not have any records in the admissions table. 
+-- (Their patient_id does not exist in any admissions.patient_id rows.)
 
+select 
+		patients.patient_id,
+        first_name,
+        last_name
+from patients
+where patient_id not in (select admissions.patient_id
+                         from admissions);
+                         
+-- Display a single row with max_visits, min_visits, average_visits where the maximum, minimum and average number of admissions per day is calculated. 
+-- Average is rounded to 2 decimal places.
 
-
+select
+		max(no_of_visits) as max_visits,
+        min(no_of_visits) as min_visits,
+        round(avg(no_of_visits),2) as average_visits
+from(select
+             admission_date,
+             count(*) as no_of_visits      
+      from admissions
+      group by admission_date);
 
