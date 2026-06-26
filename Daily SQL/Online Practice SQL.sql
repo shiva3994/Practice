@@ -562,3 +562,30 @@ from(select
       from admissions
       group by admission_date);
 
+-- Display every patient that has at least one admission and show their most recent admission along with the patient and doctor's full name.     
+      
+select
+		concat(p.first_name,' ',p.last_name) as patient_name,
+        max(admission_date),
+        concat(d.first_name,' ',d.last_name) as doctor_name
+from patients p
+join admissions a
+on p.patient_id = a.patient_id
+join doctors d
+on a.attending_doctor_id = d.doctor_id
+group by p.patient_id;
+
+-- OR
+
+select
+		concat(p.first_name,' ',p.last_name) as patient_name,
+        a.admission_date,
+        concat(d.first_name,' ',d.last_name) as doctor_name
+        
+FROM patients p
+JOIN admissions a ON p.patient_id = a.patient_id
+JOIN doctors d ON a.attending_doctor_id = d.doctor_id
+WHERE a.admission_date = (SELECT 
+                          		MAX(a2.admission_date)
+    					  FROM admissions a2
+    					  WHERE a2.patient_id = p.patient_id);
