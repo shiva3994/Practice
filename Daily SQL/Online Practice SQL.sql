@@ -825,8 +825,13 @@ SELECT
 FROM admissions
 group by admission_date;
 
+-- Show the percent of patients that have 'M' as their gender. Round the answer to the nearest hundreth number and in percent form.
 
-
+select
+	concat
+    (round(sum(gender = 'M')/ cast(count(*)as float),4) * 100,'%')
+    As Percent_of_male_patient
+from patients;
       
       
       
