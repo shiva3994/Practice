@@ -821,9 +821,11 @@ FROM patients;
 SELECT 
 		admission_date,
         count(*) as admission_day,
-        LAG(count(admission_date)) OVER(ORDER BY admission_date) AS admission_count_change 
-FROM admissions
-group by admission_date;
+        count(admission_date) - lag(count(admission_date)) 
+        over(order by admission_date) as admission_count_change
+
+from admissions
+group by admission_date
 
 -- Show the percent of patients that have 'M' as their gender. Round the answer to the nearest hundreth number and in percent form.
 

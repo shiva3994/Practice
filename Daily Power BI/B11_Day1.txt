@@ -1,0 +1,104 @@
+Prerequisities of Data Analytics:
+
+1. Statistics
+2. Linear Algebra
+3. Probability
+
+
+Types of Analytics:
+- Descriptive - What ?
+- Diagnostic - How ? (Relationship of the data)
+- Predictive - What happens in the future ? 
+- Prescriptive - Action Items for the Business Requirement
+
+
+Types of Data Formats
+- Structured 
+	- Excel, Database
+- Semi Structured
+	- .html
+	- .json
+- Unstructured
+	- Text
+		- doc, pdf, .txt
+	- Audio
+		- .mp3
+	- Video
+		- .mp4
+	- Images
+		- .jpg, .png
+
+
+<html>
+<header>
+Heading
+</header>
+<body>
+<a>
+</a>
+<p>
+</html>
+
+{
+name: 'Vignesh'
+gender: 'male'
+
+}
+
+
+
+Types of Variables in Data
+1. Quantitative / Numerical
+	- Discrete
+		- Absolute Values (whole numbers)
+			- No. of people
+	- Continuous
+		- Decimals, Fractions
+			- Height, Weight, Temp
+	
+
+2. Qualitative / Categorical
+	- Binary 
+		- Yes / No, True / False, Pass / Fail
+	- Nominal
+		- No Heirarchy
+			- Names, Blood group
+	- Ordinal
+		- Heirarchical
+			- Small, Medium, Large
+			- Grades
+
+3. Time Series Data
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+Steps to solve business problem using Data Analytics:
+
+1. Define the problem
+	- Identify what we want to achieve
+
+2. Data Gathering
+	- If the data is not there,
+		- Surveying
+	- If data is there,
+		- Sampling
+
+3. Data Preparation
+	- handling missing data
+	- Data Inconsistency
+
+4. Solution Development
+	- Descriptive and Diagnostic
+		- Dashboard
+			- Tools (PowerBI, Tableau, Looker, Qlicksight)
+
+5. Solution Evaluation
+	- Metrics
+
+6. Solution Deployment
+	- Publish the solution
