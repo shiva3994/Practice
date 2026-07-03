@@ -835,7 +835,22 @@ select
     As Percent_of_male_patient
 from patients;
       
-      
+-- For each day display the total amount of admissions on that day. Display the amount changed from the previous date.
+
+SELECT 
+		admission_date,
+        count(*) as admissions_per_day,
+        count(admission_date) - lag(count(admission_date)) over(order by admission_date) as admissions_count_change
+from admissions
+group by admission_date;
+
+-- Sort the province names in ascending order in such a way that the province 'Ontario' is always on top.
+
+select province_name
+from province_names
+order by
+        (not province_name = 'Ontario'),
+        province_name;
       
       
       
