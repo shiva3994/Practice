@@ -851,6 +851,42 @@ from province_names
 order by
         (not province_name = 'Ontario'),
         province_name;
-      
-      
-      
+
+-- We need a breakdown for the total amount of admissions each doctor has started each year. Show the doctor_id, doctor_full_name, specialty, year, total_admissions for that year.
+
+SELECT
+		doctor_id,
+        concat(first_name," ",last_name) as doctor_name,
+        specialty,
+        year(admission_date) as selected_year,
+        count(*) as total_admission        
+        
+from admissions a
+join doctors d
+on a.attending_doctor_id = d.doctor_id
+
+group by doctor_id,
+		 selected_year
+
+order by doctor_id,
+		 selected_year;
+         
+-- For each day display the total amount of admissions on that day. Display the amount changed from the previous date.         
+         
+SELECT 
+		admission_date,
+        count(admission_date) as admission_day,
+        count(admission_date) - lag(count(admission_date)) over(order by admission_date) as admission_difference
+from admissions
+group by admission_date;
+
+
+
+
+
+
+
+
+
+
+
