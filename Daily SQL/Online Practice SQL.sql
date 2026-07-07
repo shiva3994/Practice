@@ -880,8 +880,29 @@ SELECT
 from admissions
 group by admission_date;
 
+-- Sort the province names in ascending order in such a way that the province 'Ontario' is always on top.
 
+select province_name
+from province_names
+order by
+  (not province_name = 'Ontario'),
+  province_name;
 
+-- Invoices per Country
+-- A business is analyzing data by country. For each country, display the country name, total number of invoices, and their average amount. 
+-- Format the average as a floating-point number with 6 decimal places. 
+-- Return only those countries where their average invoice amount is greater than the average invoice amount over all invoices.
+  
+ SELECT 
+    co.country_name, 
+    COUNT(inv.invoice_number) AS total_invoices, 
+    ROUND(AVG(inv.total_price), 6) AS avg_amount
+FROM country co
+JOIN city ci ON co.id = ci.country_id
+JOIN customer cu ON ci.id = cu.city_id
+JOIN invoice inv ON cu.id = inv.customer_id
+GROUP BY co.country_name
+HAVING AVG(inv.total_price) > (SELECT AVG(total_price) FROM invoice);
 
 
 
