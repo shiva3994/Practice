@@ -893,7 +893,7 @@ order by
 -- Format the average as a floating-point number with 6 decimal places. 
 -- Return only those countries where their average invoice amount is greater than the average invoice amount over all invoices.
   
- SELECT 
+SELECT 
     co.country_name, 
     COUNT(inv.invoice_number) AS total_invoices, 
     ROUND(AVG(inv.total_price), 6) AS avg_amount
