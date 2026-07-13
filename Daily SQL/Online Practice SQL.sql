@@ -1025,10 +1025,43 @@ where city = 'Hamilton' and allergies is not null;
 
 select distinct(Year(birth_date)) as birth_year
 from patients
-order by birth_date
+order by birth_date;
 
+-- For example, if two or more people are named 'John' in the first_name column then don't include their name in the output list.
+-- If only 1 person is named 'Leo' then include them in the output.
 
+SELECT 
+		distinct first_name
 
+from patients
+group by first_name
+having count(first_name) = 1;
+
+-- Show patient_id and first_name from patients where their first_name start and ends with 's' and is at least 6 characters long.
+
+SELECT 
+		patient_id,
+        first_name
+from patients
+where first_name LIKE 's%____%s';
+
+-- Show patient_id, first_name, last_name from patients whos diagnosis is 'Dementia'.
+-- Primary diagnosis is stored in the admissions table.
+
+SELECT 
+		p.patient_id,
+        first_name,
+        last_name
+
+from patients p
+
+join admissions a
+on p.patient_id = a.patient_id
+
+where diagnosis = 'Dementia'
+group by p.patient_id,
+		 first_name,
+         last_name;
 
 
 
