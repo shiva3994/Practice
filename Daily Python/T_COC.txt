@@ -1,0 +1,57 @@
+*************************************************************************************************************************
+
+Python **
+
+**Data loading & inspection**
+1. Load the Excel file into a DataFrame and display the first 10 rows, the shape, and `.info()`.
+2. Find how many missing values each column has, and which column has the most.
+
+**Basic filtering & sorting**
+3. Find all cards with `elixirCost` greater than 5.
+4. Find the top 5 cards by `hitpoints`.
+5. Find all cards of `rarity == "Legendary"` and display only `name`, `elixirCost`, `usage`.
+
+**Grouping & aggregation**
+6. What is the average `elixirCost` for each `rarity`?
+7. What is the average `usage` for each `type` (Troop/Spell/Building)?
+8. Which `rarity` has the highest average `hitpoints`?
+
+**Value counts / categorical**
+9. Count how many cards belong to each `rarity`.
+10. Count how many cards are `groupCard == True` vs `False`.
+
+**Visualization (matplotlib/seaborn)**
+11. Plot a bar chart of average `elixirCost` by `rarity`.
+12. Plot a scatter plot of `elixirCost` vs `usage`, colored by `rarity`.
+
+**Bonus (slightly harder)**
+13. Handle missing `hitpoints` values (e.g., for Spells) — decide whether to fill or drop, and justify.
+14. Create a new column `elixir_efficiency = hitpoints / elixirCost` and find the top 5 cards by this metric.
+15. Find the correlation between `elixirCost`, `usage`, and `hitpoints` using `.corr()`, and visualize it with a heatmap.
+
+*************************************************************************************************************************
+
+SQL **
+
+Basic SELECT / filtering
+
+Select name, rarity, elixirCost for all cards, sorted by elixirCost descending.
+Find all cards where elixirCost >= 6.
+Find all cards where rarity = 'Legendary' AND type = 'Troop'.
+
+Aggregation / GROUP BY
+4. Get the average elixirCost grouped by rarity.
+5. Get the count of cards per type.
+6. Find the rarity with the highest average hitpoints (use GROUP BY + ORDER BY + TOP 1).
+
+NULL handling
+7. Find all cards where hitpoints IS NULL (likely Spells) and list their name and type.
+8. Count how many cards have a non-null maxEvolutionLevel (i.e., which cards can evolve).
+
+JOIN-style / CASE logic
+9. Write a query using CASE WHEN to bucket cards into 'Low Elixir' (<=3), 'Medium Elixir' (4-5), 'High Elixir' (>=6), then count cards in each bucket.
+
+Subquery / window function (slightly advanced)
+10. Using a subquery or window function (RANK() / ROW_NUMBER()), find the top 3 cards by usage within each rarity.
+
+*************************************************************************************************************************
