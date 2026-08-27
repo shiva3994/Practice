@@ -21,6 +21,13 @@ FROM dbo.CRanalysis
 WHERE rarity = 'Legendary' AND type = 'Troop';
 
 -- Get the average elixirCost grouped by rarity.
+
+SELECT
+		AVG(elixirCost) as avgelixer,
+		rarity
+FROM dbo.CRanalysis
+GROUP BY rarity;
+
 -- Get the count of cards per type.
 -- Find the rarity with the highest average hitpoints (use GROUP BY + ORDER BY + TOP 1).
 
