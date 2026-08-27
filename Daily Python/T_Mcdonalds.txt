@@ -1,0 +1,66 @@
+Good — I checked the file. This is McDonald's financial statement data (2021–2024), in **long format**: each row has `table` (e.g. revenue_breakdown, assets, liabilities, cash_flow_statement, share, operating_non_operating_table), `heading`, `subheading`, and then one column per year (2024–2021). It's small (~85 real rows, the rest is blank padding) and is fundamentally financial-statement data, not transactional — so I've shaped the questions around that (YoY growth, ratios, trends, pivoting long→wide) rather than treating it like row-per-record data.
+
+## Excel (5 questions)
+1. Clean the data — remove blank rows, strip `$` and commas from numeric columns, and convert 2021–2024 into proper numeric columns.
+2. Use a Pivot Table to summarize total revenue by `heading` (company_operated, franchised, other) for each year.
+3. Add a calculated column for YoY % growth (2024 vs 2023, 2023 vs 2022, etc.) for each `subheading`.
+4. Use `VLOOKUP`/`XLOOKUP` or `INDEX-MATCH` to pull a specific line item's value (e.g., net_income) across all 4 years into a summary table.
+5. Create a simple line or column chart showing net_income, operating_income, and total revenue trends from 2021–2024.
+
+## Python (20 questions — beginner to intermediate, with stats & probability)
+
+**Setup / EDA (beginner)**
+1. Load the CSV with pandas, drop fully blank rows, and inspect shape, dtypes, and `.info()`.
+2. Clean the year columns — strip `$`, `,` and whitespace, then convert to `float`.
+3. Pivot the long-format data (`table`, `heading`, `subheading`) into a wide table with one row per `subheading` and one column per year.
+4. Filter and display only rows where `table == 'revenue_breakdown'`.
+5. Find which `subheading` had the highest value in 2024.
+6. Group by `heading` and sum values for each year (e.g., total company_operated vs franchised revenue).
+
+**Growth & trend analysis (beginner–intermediate)**
+7. Calculate YoY % growth for each `subheading` between 2021→2022→2023→2024.
+8. Identify which line items grew every single year (consistent growth) vs which declined at least once.
+9. Compute CAGR (Compound Annual Growth Rate) for revenue and net_income from 2021 to 2024.
+10. Plot a multi-line chart (matplotlib/seaborn) showing revenue, operating_income, and net_income trends over the 4 years.
+
+**Statistics (intermediate)**
+11. Calculate mean, median, standard deviation, and variance of YoY growth rates across all line items.
+12. Compute the correlation between operating_costs components (e.g., food_and_paper vs payroll_and_employee_benefits) across years.
+13. Calculate what % of total revenue each segment (company_operated_us, franchised_us, etc.) contributes in 2024, and compare that mix to 2021.
+14. Use `.describe()` to summarize distribution statistics of all 2024 values, and identify outliers using IQR or z-scores.
+15. Build a simple linear regression (using `numpy.polyfit` or `sklearn`) to project 2025 revenue based on the 2021–2024 trend.
+
+**Probability (intermediate)**
+16. Given the historical YoY growth rates for net_income, model them as a normal distribution (mean, std) and calculate the probability that 2025 net_income growth exceeds a target (e.g., 5%).
+17. Run a Monte Carlo simulation (1,000+ trials) using the historical mean/std of revenue growth to simulate a range of possible 2025 revenue outcomes, then plot the distribution.
+18. Calculate the probability that operating expenses grow faster than revenue in a given year, based on historical frequency across the dataset's line items.
+19. Use bootstrapping (resampling with replacement) on the YoY growth rates to estimate a confidence interval for expected 2025 growth.
+20. Compare two "what-if" scenarios (optimistic vs conservative growth assumptions) and calculate the probability-weighted expected net_income for 2025.
+
+## SQL (12 questions — beginner to intermediate)
+1. Write a query to `SELECT *` and check row counts per `table` category.
+2. Write a query to filter only rows where `table = 'assets'`.
+3. Find all subheadings where the 2024 value is greater than the 2023 value (YoY increase) — using `CASE WHEN` or a computed column.
+4. Use `GROUP BY heading` to `SUM` the 2024 values within `revenue_breakdown`.
+5. Use a `CASE WHEN` to bucket line items into 'Revenue', 'Cost', or 'Other' based on `table`/`heading` values.
+6. Write a query using `ORDER BY` to rank subheadings by 2024 value, descending.
+7. Use a window function (`RANK()` or `ROW_NUMBER()`) to find the top 3 highest-value line items per `table`.
+8. Calculate YoY growth (2024 vs 2023) using a computed column: `(2024 - 2023) / NULLIF(2023,0) * 100`.
+9. Find all rows where any year's value is `NULL` and investigate why.
+10. Use a self-join or `LAG()` window function to compare each year's value to the prior year within the same `subheading`.
+11. Write a query to find the `subheading` with the maximum `net_income` contribution using `MAX()`.
+12. Use `HAVING` to find `heading` groups where total 2024 value exceeds a threshold (e.g., > 5000).
+
+## Power BI (10 questions — beginner to intermediate)
+1. Import the CSV and use Power Query to unpivot/reshape the data if needed, and clean currency-formatted text into numbers.
+2. Build a star-schema-style model (or a simple flat model given the small size) with a Year dimension.
+3. Create a DAX measure for **Total Revenue**, **Total Operating Costs**, and **Net Income** by year.
+4. Create a DAX measure for **YoY % Growth** using `CALCULATE` and `DIVIDE` with prior-year comparison.
+5. Build a line chart visual showing revenue, operating income, and net income trends from 2021–2024.
+6. Build a stacked bar chart showing revenue breakdown (company_operated vs franchised vs other) by year.
+7. Create a matrix visual with `heading`/`subheading` as rows and years as columns, showing values and conditional formatting for growth/decline.
+8. Add a KPI card visual for the latest year's net_income vs prior year, with a trend indicator.
+9. Create a calculated column or measure for **profit margin** (net_income / total revenue) and visualize it as a % trend.
+10. Build a simple "what-if" parameter slider (Power BI What-If Parameter) letting users adjust an assumed growth rate and see a projected 2025 revenue/net_income estimate.
+
+Want me to actually start building any of these out (e.g., the pandas cleaning + pivot script, or the SQL Server table creation script) so you have working code to start from?
