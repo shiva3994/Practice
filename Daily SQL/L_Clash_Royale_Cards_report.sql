@@ -47,11 +47,51 @@ ORDER BY avghitpoints DESC;
 
 -- Find all cards where hitpoints IS NULL (likely Spells) and list their name and type.
 
+SELECT
+		name,
+		type
+FROM dbo.CRanalysis
+WHERE hitpoints IS NULL;
 
 -- Count how many cards have a non-null maxEvolutionLevel (i.e., which cards can evolve).
 
+SELECT 
+		COUNT(*) as notnullcards
+FROM dbo.CRanalysis
+WHERE maxEvolutionLevel IS NOT NULL;
 
 -- Write a query using CASE WHEN to bucket cards into 'Low Elixir' (<=3), 'Medium Elixir' (4-5), 'High Elixir' (>=6), then count cards in each bucket.
 
+SELECT
+	CASE
+		WHEN elixirCost <= 3 THEN 'Low Elixir'
+		WHEN elixirCost BETWEEN 4 AND 5 THEN 'Medium Elixir'
+		WHEN elixirCost >= 6 THEN 'High Elixir'
+	END AS elixir_bucket,
+	COUNT(*) AS card_count
+
+FROM dbo.CRanalysis
+GROUP BY
+    CASE
+        WHEN elixirCost <= 3 THEN 'Low Elixir'
+        WHEN elixirCost BETWEEN 4 AND 5 THEN 'Medium Elixir'
+        WHEN elixirCost >= 6 THEN 'High Elixir'
+    END;
 
 -- Using a subquery or window function (RANK() / ROW_NUMBER()), find the top 3 cards by usage within each rarity.
+
+SELECT
+		name,
+		rarity,
+		usage,
+		card_rank
+FROM (
+		SELECT
+				name,
+				rarity,
+				usage,
+				RANK() OVER (PARTITION BY rarity ORDER BY usage DESC) AS card_rank
+		FROM dbo.CRanalysis
+	) AS ranked
+WHERE card_rank <= 3
+ORDER BY rarity, card_rank;
