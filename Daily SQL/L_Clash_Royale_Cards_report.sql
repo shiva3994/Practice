@@ -38,7 +38,12 @@ GROUP BY type;
 
 -- Find the rarity with the highest average hitpoints (use GROUP BY + ORDER BY + TOP 1).
 
-
+SELECT TOP 1
+		rarity,
+		AVG(hitpoints) as avghitpoints
+FROM dbo.CRanalysis
+GROUP BY rarity
+ORDER BY avghitpoints DESC;
 
 -- Find all cards where hitpoints IS NULL (likely Spells) and list their name and type.
 -- Count how many cards have a non-null maxEvolutionLevel (i.e., which cards can evolve).
