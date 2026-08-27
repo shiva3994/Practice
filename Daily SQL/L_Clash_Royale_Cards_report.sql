@@ -29,7 +29,15 @@ FROM dbo.CRanalysis
 GROUP BY rarity;
 
 -- Get the count of cards per type.
+
+SELECT
+		type,
+		COUNT(*) as cardcount
+FROM dbo.CRanalysis
+GROUP BY type;
+
 -- Find the rarity with the highest average hitpoints (use GROUP BY + ORDER BY + TOP 1).
+
 
 
 -- Find all cards where hitpoints IS NULL (likely Spells) and list their name and type.
