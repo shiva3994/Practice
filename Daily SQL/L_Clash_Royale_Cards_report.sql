@@ -46,9 +46,12 @@ GROUP BY rarity
 ORDER BY avghitpoints DESC;
 
 -- Find all cards where hitpoints IS NULL (likely Spells) and list their name and type.
+
+
 -- Count how many cards have a non-null maxEvolutionLevel (i.e., which cards can evolve).
 
 
 -- Write a query using CASE WHEN to bucket cards into 'Low Elixir' (<=3), 'Medium Elixir' (4-5), 'High Elixir' (>=6), then count cards in each bucket.
+
 
 -- Using a subquery or window function (RANK() / ROW_NUMBER()), find the top 3 cards by usage within each rarity.
