@@ -1,28 +1,86 @@
-﻿Row Labels,Sum of 2021,Sum of 2022,Sum of 2023,Sum of 2024,,Growth 2022 vs 2021,Growth 2023 vs 2022,Growth 2024 vs 2023
-cash_and_equivalents_at_beginning_of_year,3450,4709,2584,4579,,4708,,
-cash_and_equivalents_at_end_of_year,4709,2584,4579,1085,,,,
-cash_and_equivalents_increase_(decrease),1260,-2126,1996,-3495,,,,
-changes_in_working_capital,454,-645,-108,-438,,,,
-charges_and_credit,1142,1855,1251,1661,,,,
-company_operated,9788,8748,9742,9782,,,,
-current_assets,7149,5424,7986,4598,,,,
-current_liabilities,4020,3802,6859,3861,,,,
-effect_of_exchange_rates,-120,-254,-58,-101,,,,
-financing_activity,-5597,-6580,-4374,-7493,,,,
-franchised,13085,14106,15436,15715,,,,
-income_taxes_paid,2404,3024,2993,2974,,,,
-interest_paid,1197,1184,1287,1523,,,,
-investing_activity,-2166,-2678,-3184,-5346,,,,
-lease_and_property,38273,36339,38422,38634,,,,
-long_term_liabilities,54435,52637,53995,55119,,,,
-net_income,7545,6177,8469,8223,,,,
-non_operating_cost,2811,3194,3178,3488,,,,
-operating_costs,2485,4081,3149,3337,,,,
-operating_costs_company_owned,8048,7381,8224,8335,,,,
-operating_costs_franchise,2335,2350,2475,2536,,,,
-other,351,329,316,423,,,,
-other_assets,8433,8672,9738,11950,,,,
-share_data,1524,1500,1490,1470,,,,
-shareholders,-4601,-6003,-4706,-3796,,,,
-total,27029,23374,30638,30280,,,,
-Grand Total,189443,173183,202377,188904,,,,
+Table,Heading,Subheading,2024,2023,2022,2021
+revenue_breakdown,company_operated,company_operated_us,3197,3221,2836,2617
+revenue_breakdown,company_operated,company_operated_international_operated_markets,5713,5702,5179,6456
+revenue_breakdown,company_operated,company_operated_intl_dev_licensed_and_corp,872,819,733,715
+revenue_breakdown,franchised,franchised_us,7211,7163,6585,6094
+revenue_breakdown,franchised,franchised_international_operated_markets,6746,6549,5985,5638
+revenue_breakdown,franchised,franchised_intl_dev_licensed_and_corp,1758,1724,1536,1353
+revenue_breakdown,other,other_revenues,423,316,329,351
+operating_non_operating_table,operating_costs_company_owned,food_and_paper,2995,3039,2737,3097
+operating_non_operating_table,operating_costs_company_owned,payroll_and_employee_benefits,2959,2886,2617,2677
+operating_non_operating_table,operating_costs_company_owned,occupancy_and_other_operating_expenses,2381,2299,2026,2274
+operating_non_operating_table,operating_costs_franchise,franchised_restaurants__occupancy_expenses,2536,2475,2350,2335
+operating_non_operating_table,operating_costs,other_restaurant_expenses,339,233,245,260
+operating_non_operating_table,operating_costs,sganda_expenses_other,2412,2435,2492,2378
+operating_non_operating_table,operating_costs,depreciation_and_amortization,447,382,370,330
+operating_non_operating_table,operating_costs,other_operating_income_expense_net,139,99,974,-483
+operating_non_operating_table,total,operating_income,11712,11647,9371,10356
+operating_non_operating_table,non_operating_cost,interest_expense,1506,1361,1207,1186
+operating_non_operating_table,non_operating_cost,nonoperating_income_expense_net,-139,-236,339,42
+operating_non_operating_table,total,income_before_income_taxes,10345,10522,7825,9128
+operating_non_operating_table,non_operating_cost,provision_for_income_taxes,2121,2053,1648,1583
+operating_non_operating_table,total,net_income,8223,8469,6177,7545
+share,share_data,earnings_per_share__basic,11,12,8,10
+share,share_data,earnings_per_share__diluted,11,12,8,10
+share,share_data,dividends_declared_per_share,7,6,6,5
+share,share_data,avg_shares_outstanding__basic,718,728,737,746
+share,share_data,avg_shares_outstanding__diluted,722,732,741,752
+assets,current_assets,cash_and_equivalents,1085,4579,2584,4709
+assets,current_assets,accounts_and_notes_receivable,2383,2488,2115,1872
+assets,current_assets,inventories,56,53,52,56
+assets,current_assets,prepaid_expenses_and_other_current_assets,1074,866,673,511
+assets,other_assets,investments_in_and_advances_to_affiliates,2710,1080,1065,1201
+assets,other_assets,goodwill,3145,3040,2900,2783
+assets,other_assets,miscellaneous,6095,5618,4707,4450
+assets,lease_and_property,lease_right_of_use_asset_net,13339,13514,12566,13552
+assets,lease_and_property,property_and_equipment_at_cost,44177,43570,41038,41917
+assets,lease_and_property,accumulated_depreciation_and_amortization,-18882,-18662,-17264,-17196
+liabilities,current_liabilities,short_term_borrowings_and_current_maturities,0,2192,0,0
+liabilities,current_liabilities,accounts_payable,1029,1103,980,1007
+liabilities,current_liabilities,lease_liability,636,688,661,706
+liabilities,current_liabilities,income_taxes,361,705,275,361
+liabilities,current_liabilities,other_taxes,224,268,255,237
+liabilities,current_liabilities,accrued_interest,482,469,393,363
+liabilities,current_liabilities,accrued_payroll_and_other_liabilities,1129,1434,1237,1347
+liabilities,long_term_liabilities,long_term_debt,38424,37153,35904,35623
+liabilities,long_term_liabilities,long_term_lease_liability,12888,13058,12134,13021
+liabilities,long_term_liabilities,long_term_income_taxes,344,363,792,1897
+liabilities,long_term_liabilities,deferred_revenues__franchise_fees,778,790,758,738
+liabilities,long_term_liabilities,other_long_term_liabilities,771,950,1052,1081
+liabilities,long_term_liabilities,deferred_income_taxes,1914,1681,1998,2076
+liabilities,shareholders,preferred_stock_no_par_value_,0,0,0,0
+liabilities,shareholders,common_stock_issued_16606m_shares_,17,17,17,17
+liabilities,shareholders,additional_paid_in_capital,9281,8893,8547,8232
+liabilities,shareholders,retained_earnings,66834,63480,59544,57535
+liabilities,shareholders,accum_other_comprehensive_income_loss_,-2553,-2456,-2487,-2574
+liabilities,shareholders,treasury_stock_at_cost_,-77375,-74640,-71624,-67810
+cash_flow_statement,net_income,Net income,8223,8469,6177,7545
+cash_flow_statement,charges_and_credit,Depreciation and amortization,2097,1978,1871,1868
+cash_flow_statement,charges_and_credit,Deferred income taxes,-574,-686,-346,-428
+cash_flow_statement,charges_and_credit,Share-based compensation,172,175,167,139
+cash_flow_statement,charges_and_credit,Net (gain) loss on sale of restaurant and other businesses,-37,-103,733,-98
+cash_flow_statement,charges_and_credit,Other (Operating),3,-113,-570,-339
+cash_flow_statement,changes_in_working_capital,Accounts receivable,10,-161,-264,310
+cash_flow_statement,changes_in_working_capital,"Inventories, prepaid expenses and other current assets",71,17,6,-62
+cash_flow_statement,changes_in_working_capital,Accounts payable,-10,50,31,225
+cash_flow_statement,changes_in_working_capital,Income taxes,-292,-220,-547,-303
+cash_flow_statement,changes_in_working_capital,Other accrued liabilities,-217,206,129,284
+cash_flow_statement,investing_activity,Capital expenditures,-2775,-2357,-1899,-2040
+cash_flow_statement,investing_activity,Purchases of restaurant businesses,-669,-441,-807,-374
+cash_flow_statement,investing_activity,Purchases of equity method investments,-1837,0,0,0
+cash_flow_statement,investing_activity,Sales of restaurant and other businesses,311,195,446,196
+cash_flow_statement,investing_activity,Sales of property,122,95,39,106
+cash_flow_statement,investing_activity,Other (Investing),-498,-676,-457,-54
+cash_flow_statement,financing_activity,Net short-term borrowings,326,213,26,15
+cash_flow_statement,financing_activity,Long-term financing issuances,2380,5221,3374,1154
+cash_flow_statement,financing_activity,Long-term financing repayments,-2777,-2441,-2202,-2241
+cash_flow_statement,financing_activity,Treasury stock purchases,-2824,-3054,-3896,-846
+cash_flow_statement,financing_activity,Common stock dividends,-4870,-4533,-4168,-3919
+cash_flow_statement,financing_activity,Proceeds from stock option exercises,328,260,248,286
+cash_flow_statement,financing_activity,Other (Financing),-56,-40,38,-47
+cash_flow_statement,effect_of_exchange_rates,effect_of_exchange_rates,-101,-58,-254,-120
+cash_flow_statement,cash_and_equivalents_increase_(decrease),cash_and_equivalents_increase_(decrease),-3495,1996,-2126,1260
+cash_flow_statement,cash_and_equivalents_at_beginning_of_year,cash_and_equivalents_at_beginning_of_year,4579,2584,4709,3450
+cash_flow_statement,cash_and_equivalents_at_end_of_year,cash_and_equivalents_at_end_of_year,1085,4579,2584,4709
+cash_flow_statement,interest_paid,interest_paid,1523,1287,1184,1197
+cash_flow_statement,income_taxes_paid,income_taxes_paid,2974,2993,3024,2404
