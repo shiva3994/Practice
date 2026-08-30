@@ -113,11 +113,35 @@ WHERE [2021] IS NULL
 
 -- 10. Use a self-join or `LAG()` window function to compare each year's value to the prior year within the same `subheading`.
 
-
+WITH unpivoted AS (
+    SELECT subheading, '2021' AS yr, [2021] AS value FROM dbo.Mcdonalds
+    UNION ALL
+    SELECT subheading, '2022', [2022] FROM dbo.Mcdonalds
+    UNION ALL
+    SELECT subheading, '2023', [2023] FROM dbo.Mcdonalds
+    UNION ALL
+    SELECT subheading, '2024', [2024] FROM dbo.Mcdonalds
+)
+SELECT
+    subheading,
+    yr,
+    value,
+    LAG(value) OVER (PARTITION BY subheading ORDER BY yr) AS prior_year_value
+FROM unpivoted
+ORDER BY subheading, yr;
 
 
 -- 11. Write a query to find the `subheading` with the maximum `net_income` contribution using `MAX()`.
 
+SELECT TOP 1
+        subheading,
+        [2021],
+        [2022],
+        [2023],
+        [2024]
+FROM dbo.Mcdonalds
+WHERE subheading = 'net_income'
+ORDER BY subheading ASC;
 
 -- 12. Use `HAVING` to find `heading` groups where total 2024 value exceeds a threshold (e.g., > 5000).
 
