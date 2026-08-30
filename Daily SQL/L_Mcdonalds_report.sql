@@ -143,6 +143,12 @@ FROM dbo.Mcdonalds
 WHERE subheading = 'net_income'
 ORDER BY subheading ASC;
 
+
 -- 12. Use `HAVING` to find `heading` groups where total 2024 value exceeds a threshold (e.g., > 5000).
 
-
+SELECT
+    heading,
+    SUM([2024]) AS total_2024
+FROM dbo.Mcdonalds
+GROUP BY heading
+HAVING SUM([2024]) > 5000;
