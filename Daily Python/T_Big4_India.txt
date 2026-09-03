@@ -1,0 +1,465 @@
+# 7-Day SQL + Python Practice Plan (Big4 India Dataset)
+
+**Format:** Each day has 20 SQL + 20 Python questions, grouped into 4 concept "types" of 5 questions each. Every group drills one skill through repetition — same pattern, different table/column/condition — so you build muscle memory before moving to the next concept.
+
+**Tables & columns (for reference):**
+- `Clients` — Client_ID, Company, Industry, Country, ContractValue
+- `Company_Financials` — Financial_ID, Company, Year, Quarter, Revenue, Profit, Employees
+- `Employees` — Employee_ID, Company, Department, Role, Age, Salary, JoinDate
+- `Office_Locations` — Office_ID, Company, Country, State, City, Employees
+- `Projects` — Project_ID, Company, Client_ID, Employee_ID, Technology, Budget, Status
+- `Technologies` — Technology_ID, Company, Technology, Project_ID, Popularity
+
+In pandas, assume each CSV is loaded as a lowercase-suffixed DataFrame: `clients`, `financials`, `employees`, `offices`, `projects`, `technologies`.
+
+---
+
+## DAY 1 — Basics: SELECT, WHERE, Exploring
+
+### SQL
+
+**Type A — Basic SELECT + WHERE (single condition)**
+1. Select all clients where `Industry = 'Retail'`.
+2. Select all employees where `Department = 'Finance'`.
+3. Select all projects where `Status = 'On Hold'`.
+4. Select all offices where `Country = 'India'`.
+5. Select all financial records where `Year = 2020`.
+
+**Type B — Comparison operators**
+6. Find all employees with `Salary > 80000`.
+7. Find all clients with `ContractValue < 5000000`.
+8. Find all projects with `Budget >= 7000000`.
+9. Find all financial records where `Profit < 0` (loss-making quarters).
+10. Find all employees where `Age <= 25`.
+
+**Type C — NULL handling**
+11. Find all rows in `Employees` where `Salary IS NULL`.
+12. Find all rows in `Projects` where `Client_ID IS NULL`.
+13. Find all rows in `Company_Financials` where `Profit IS NULL`.
+14. Find all rows in `Technologies` where `Popularity IS NULL`.
+15. Find all rows in `Office_Locations` where `City IS NULL`.
+
+**Type D — Pattern matching (LIKE)**
+16. Find all clients whose `Company` name starts with `'T'`.
+17. Find all employees whose `Role` contains the word `'Engineer'`.
+18. Find all offices located in a `City` starting with `'Pu'`.
+19. Find all technologies where `Technology` contains `'SQL'`.
+20. Find all clients in an `Industry` ending with `'care'` (e.g. Healthcare).
+
+### Python
+
+**Type A — Load & explore**
+1. Load `clients.csv` and display the first 5 rows and the shape.
+2. Load `employees.csv` and check data types with `.info()`.
+3. Load `projects.csv` and check for missing values per column.
+4. Load `offices.csv` and list all column names.
+5. Load `technologies.csv` and check for duplicate rows with `.duplicated()`.
+
+**Type B — Column selection**
+6. From `clients`, select just `Company` and `Industry`.
+7. From `employees`, select `Employee_ID`, `Role`, and `Salary`.
+8. From `projects`, select `Project_ID`, `Technology`, and `Status`.
+9. From `offices`, select `Company` and `City`.
+10. From `financials`, select `Company`, `Year`, and `Revenue`.
+
+**Type C — Filtering rows**
+11. Filter `clients` to only rows where `Industry == 'Retail'`.
+12. Filter `employees` to only rows where `Department == 'AI'`.
+13. Filter `projects` to only rows where `Status == 'In Progress'`.
+14. Filter `offices` to only rows where `Country == 'India'`.
+15. Filter `financials` to only rows where `Year == 2021`.
+
+**Type D — `.value_counts()`**
+16. Count how many clients fall into each `Industry`.
+17. Count how many employees fall into each `Department`.
+18. Count how many projects fall into each `Status`.
+19. Count how many offices exist per `Company`.
+20. Count how many technologies fall into each `Technology` name.
+
+---
+
+## DAY 2 — Aggregates & GROUP BY
+
+### SQL
+
+**Type A — Single aggregate, no grouping**
+1. Find the average `Salary` across all employees.
+2. Find the total (`SUM`) `ContractValue` across all clients.
+3. Find the maximum `Budget` across all projects.
+4. Find the minimum `Profit` across all financial records.
+5. Count the total number of offices.
+
+**Type B — GROUP BY with COUNT**
+6. Count how many employees work in each `Department`.
+7. Count how many clients exist per `Industry`.
+8. Count how many projects exist per `Status`.
+9. Count how many offices exist per `Country`.
+10. Count how many financial records exist per `Company`.
+
+**Type C — GROUP BY with SUM/AVG**
+11. Find the average `Salary` per `Department`.
+12. Find the total `ContractValue` per `Industry`.
+13. Find the average `Budget` per `Technology` (from Projects).
+14. Find the total `Revenue` per `Company` (from Company_Financials).
+15. Find the average `Popularity` per `Technology` (from Technologies).
+
+**Type D — GROUP BY with MIN/MAX**
+16. Find the highest-paid employee's salary per `Department`.
+17. Find the largest `ContractValue` per `Industry`.
+18. Find the smallest `Budget` per `Status`.
+19. Find the highest `Profit` per `Company`.
+20. Find the highest `Popularity` score per `Technology`.
+
+### Python
+
+**Type A — Single aggregate**
+1. Calculate the average `Salary` in `employees`.
+2. Calculate the total `ContractValue` in `clients`.
+3. Find the maximum `Budget` in `projects`.
+4. Find the minimum `Profit` in `financials`.
+5. Count the total number of rows in `offices`.
+
+**Type B — `.groupby()` + `.count()` / `.size()`**
+6. Group `employees` by `Department` and count employees in each.
+7. Group `clients` by `Industry` and count clients in each.
+8. Group `projects` by `Status` and count projects in each.
+9. Group `offices` by `Country` and count offices in each.
+10. Group `financials` by `Company` and count records in each.
+
+**Type C — `.groupby()` + `.mean()` / `.sum()`**
+11. Group `employees` by `Department` and find average `Salary`.
+12. Group `clients` by `Industry` and find total `ContractValue`.
+13. Group `projects` by `Technology` and find average `Budget`.
+14. Group `financials` by `Company` and find total `Revenue`.
+15. Group `technologies` by `Technology` and find average `Popularity`.
+
+**Type D — `.groupby()` + `.agg()` (multiple stats at once)**
+16. Group `employees` by `Department` and get both mean and max `Salary` in one `.agg()`.
+17. Group `clients` by `Industry` and get both sum and count of `ContractValue`.
+18. Group `projects` by `Status` and get min, max, and mean `Budget`.
+19. Group `financials` by `Company` and get sum of `Revenue` and sum of `Profit`.
+20. Group `offices` by `Company` and get count of offices and sum of `Employees`.
+
+---
+
+## DAY 3 — Sorting, TOP/LIMIT, String Work
+
+### SQL
+
+**Type A — ORDER BY basics**
+1. Sort `Employees` by `Salary` descending.
+2. Sort `Clients` by `ContractValue` ascending.
+3. Sort `Projects` by `Budget` descending.
+4. Sort `Company_Financials` by `Revenue` descending.
+5. Sort `Technologies` by `Popularity` descending.
+
+**Type B — TOP N**
+6. Find the top 5 highest-paid employees.
+7. Find the top 3 clients by `ContractValue`.
+8. Find the top 5 projects by `Budget`.
+9. Find the top 3 companies by `Revenue` in a given year.
+10. Find the top 5 technologies by `Popularity`.
+
+**Type C — Multi-column sorting**
+11. Sort `Employees` by `Department` ascending, then `Salary` descending within each department.
+12. Sort `Clients` by `Industry` ascending, then `ContractValue` descending.
+13. Sort `Projects` by `Status` ascending, then `Budget` descending.
+14. Sort `Company_Financials` by `Company` ascending, then `Year` descending.
+15. Sort `Offices` by `Country` ascending, then `City` ascending.
+
+**Type D — String functions**
+16. Convert all `Company` names in `Clients` to uppercase using `UPPER()`.
+17. Find the length of each `Role` value in `Employees` using `LEN()`.
+18. Concatenate `City` and `Country` from `Office_Locations` into one column, separated by a comma.
+19. Extract the first 3 letters of each `Technology` name using `LEFT()`.
+20. Trim any extra spaces from `Company` names using `TRIM()`.
+
+### Python
+
+**Type A — `.sort_values()` basics**
+1. Sort `employees` by `Salary` descending.
+2. Sort `clients` by `ContractValue` ascending.
+3. Sort `projects` by `Budget` descending.
+4. Sort `financials` by `Revenue` descending.
+5. Sort `technologies` by `Popularity` descending.
+
+**Type B — `.head()` / `.nlargest()`**
+6. Find the top 5 highest-paid employees using `.nlargest()`.
+7. Find the top 3 clients by `ContractValue`.
+8. Find the top 5 projects by `Budget`.
+9. Find the top 3 rows by `Revenue` in `financials`.
+10. Find the top 5 rows by `Popularity` in `technologies`.
+
+**Type C — Multi-column sort**
+11. Sort `employees` by `Department` ascending, then `Salary` descending.
+12. Sort `clients` by `Industry` ascending, then `ContractValue` descending.
+13. Sort `projects` by `Status` ascending, then `Budget` descending.
+14. Sort `financials` by `Company` ascending, then `Year` descending.
+15. Sort `offices` by `Country` ascending, then `City` ascending.
+
+**Type D — String methods (`.str`)**
+16. Convert all `Company` values in `clients` to uppercase using `.str.upper()`.
+17. Create a new column with the character length of each `Role` in `employees`.
+18. Combine `City` and `Country` from `offices` into one column separated by a comma.
+19. Extract the first 3 letters of each `Technology` name in `technologies`.
+20. Strip any leading/trailing whitespace from `Company` names using `.str.strip()`.
+
+---
+
+## DAY 4 — Joins / Merge
+
+### SQL
+
+**Type A — Basic INNER JOIN (2 tables)**
+1. Join `Projects` and `Clients` to show each project alongside its client's `Company` name.
+2. Join `Employees` and `Projects` to show each project alongside the assigned employee's `Role`.
+3. Join `Company_Financials` and `Office_Locations` on `Company` to show revenue next to office city.
+4. Join `Projects` and `Technologies` on `Project_ID` to show project status alongside technology used.
+5. Join `Clients` and `Company_Financials` on `Company` to compare `ContractValue` to `Revenue`.
+
+**Type B — JOIN + WHERE filter**
+6. Join `Projects` and `Clients`, filtering to only clients in the `'Retail'` industry.
+7. Join `Employees` and `Projects`, filtering to only projects with `Status = 'In Progress'`.
+8. Join `Office_Locations` and `Company_Financials`, filtering to only offices in `'India'`.
+9. Join `Projects` and `Technologies`, filtering to only `Technology = 'Azure'`.
+10. Join `Clients` and `Projects`, filtering to only projects with `Budget > 5000000`.
+
+**Type C — JOIN + aggregate**
+11. Join `Projects` and `Clients`, then find total `Budget` per client `Industry`.
+12. Join `Employees` and `Projects`, then count how many projects each `Department` is involved in.
+13. Join `Office_Locations` and `Company_Financials`, then find average `Revenue` per office `Country`.
+14. Join `Projects` and `Technologies`, then find average `Popularity` per project `Status`.
+15. Join `Clients` and `Projects`, then find average `Budget` per client `Country`.
+
+**Type D — LEFT JOIN (finding unmatched rows)**
+16. LEFT JOIN `Clients` to `Projects` to find clients with no associated project.
+17. LEFT JOIN `Employees` to `Projects` to find employees not assigned to any project.
+18. LEFT JOIN `Company_Financials` to `Office_Locations` (on Company) to find companies with financial records but no listed office.
+19. LEFT JOIN `Technologies` to `Projects` to find technology entries with no matching project.
+20. LEFT JOIN `Office_Locations` to `Company_Financials` (on Company) to find offices with no matching financial record.
+
+### Python
+
+**Type A — Basic `.merge()` (2 DataFrames)**
+1. Merge `projects` and `clients` on `Client_ID` to add each client's `Company` name to the projects table.
+2. Merge `employees` and `projects` on `Employee_ID` to add each employee's `Role` to the projects table.
+3. Merge `financials` and `offices` on `Company` to see revenue alongside office city.
+4. Merge `projects` and `technologies` on `Project_ID` to see project status alongside technology.
+5. Merge `clients` and `financials` on `Company` to compare `ContractValue` to `Revenue`.
+
+**Type B — Merge + filter**
+6. Merge `projects` and `clients`, then filter to only clients in the `'Retail'` industry.
+7. Merge `employees` and `projects`, then filter to only projects with `Status == 'In Progress'`.
+8. Merge `offices` and `financials`, then filter to only offices in `'India'`.
+9. Merge `projects` and `technologies`, then filter to only `Technology == 'Azure'`.
+10. Merge `clients` and `projects`, then filter to only projects with `Budget > 5000000`.
+
+**Type C — Merge + groupby**
+11. Merge `projects` and `clients`, then find total `Budget` per client `Industry`.
+12. Merge `employees` and `projects`, then count projects per employee `Department`.
+13. Merge `offices` and `financials`, then find average `Revenue` per office `Country`.
+14. Merge `projects` and `technologies`, then find average `Popularity` per project `Status`.
+15. Merge `clients` and `projects`, then find average `Budget` per client `Country`.
+
+**Type D — `how='left'` + finding unmatched rows**
+16. Left-merge `clients` with `projects` to find clients with no associated project (`Project_ID` is `NaN`).
+17. Left-merge `employees` with `projects` to find employees not assigned to any project.
+18. Left-merge `financials` with `offices` (on Company) to find companies with financials but no office listed.
+19. Left-merge `technologies` with `projects` to find technology entries with no matching project.
+20. Left-merge `offices` with `financials` (on Company) to find offices with no matching financial record.
+
+---
+
+## DAY 5 — Subqueries & HAVING / Apply & Deeper GroupBy
+
+### SQL
+
+**Type A — Subquery in WHERE**
+1. Find employees whose `Salary` is above the overall average salary.
+2. Find clients whose `ContractValue` is above the overall average contract value.
+3. Find projects whose `Budget` is above the overall average budget.
+4. Find financial records where `Revenue` is above the overall average revenue.
+5. Find technologies where `Popularity` is above the overall average popularity.
+
+**Type B — HAVING (filtering grouped results)**
+6. Find departments where average `Salary` exceeds 60000.
+7. Find industries where total `ContractValue` exceeds 100000000.
+8. Find project statuses where average `Budget` exceeds 5000000.
+9. Find companies where total `Revenue` exceeds 50000.
+10. Find technologies where average `Popularity` exceeds 50.
+
+**Type C — CASE WHEN (categorization)**
+11. Label each employee as `'Senior'` if `Age > 40`, else `'Junior'`.
+12. Label each client as `'High Value'` if `ContractValue > 20000000`, else `'Standard'`.
+13. Label each project as `'Big Budget'` if `Budget > 5000000`, else `'Small Budget'`.
+14. Label each financial record as `'Profitable'` if `Profit > 0`, else `'Loss'`.
+15. Label each technology as `'Popular'` if `Popularity > 50`, else `'Niche'`.
+
+**Type D — Correlated subquery (per-group comparison)**
+16. Find employees earning more than the average salary *within their own department*.
+17. Find clients whose `ContractValue` is above the average *within their own industry*.
+18. Find projects whose `Budget` is above the average *within their own status group*.
+19. Find financial records above the average revenue *within their own company*.
+20. Find technologies above the average popularity *within their own company*.
+
+### Python
+
+**Type A — Boolean filtering against an overall stat**
+1. Find employees whose `Salary` is above `employees['Salary'].mean()`.
+2. Find clients whose `ContractValue` is above `clients['ContractValue'].mean()`.
+3. Find projects whose `Budget` is above `projects['Budget'].mean()`.
+4. Find financial records where `Revenue` is above `financials['Revenue'].mean()`.
+5. Find technologies where `Popularity` is above `technologies['Popularity'].mean()`.
+
+**Type B — GroupBy + filter (pandas' HAVING equivalent)**
+6. Find departments where average `Salary` exceeds 60000 (`.groupby().filter()` or `.groupby().mean()` + boolean mask).
+7. Find industries where total `ContractValue` exceeds 100000000.
+8. Find project statuses where average `Budget` exceeds 5000000.
+9. Find companies where total `Revenue` exceeds 50000.
+10. Find technologies where average `Popularity` exceeds 50.
+
+**Type C — `.apply()` / `np.where()` for categorization**
+11. Create a column labeling each employee `'Senior'` if `Age > 40`, else `'Junior'`.
+12. Create a column labeling each client `'High Value'` if `ContractValue > 20000000`, else `'Standard'`.
+13. Create a column labeling each project `'Big Budget'` if `Budget > 5000000`, else `'Small Budget'`.
+14. Create a column labeling each financial record `'Profitable'` if `Profit > 0`, else `'Loss'`.
+15. Create a column labeling each technology `'Popular'` if `Popularity > 50`, else `'Niche'`.
+
+**Type D — `.transform()` for per-group comparison**
+16. Find employees earning more than their department's average salary using `.groupby('Department')['Salary'].transform('mean')`.
+17. Find clients whose `ContractValue` is above their industry's average using `.transform()`.
+18. Find projects whose `Budget` is above their status group's average using `.transform()`.
+19. Find financial records above their company's average revenue using `.transform()`.
+20. Find technologies above their company's average popularity using `.transform()`.
+
+---
+
+## DAY 6 — Window Functions / Combining Files & Reshaping
+
+### SQL
+
+**Type A — RANK() / ROW_NUMBER() within a group**
+1. Rank employees within each `Department` by `Salary` descending.
+2. Rank clients within each `Industry` by `ContractValue` descending.
+3. Rank projects within each `Status` by `Budget` descending.
+4. Rank financial records within each `Company` by `Revenue` descending.
+5. Rank technologies within each `Company` by `Popularity` descending.
+
+**Type B — Top N per group (ROW_NUMBER + CTE)**
+6. Find the top 2 highest-paid employees in each `Department`.
+7. Find the top 2 highest-value clients in each `Industry`.
+8. Find the top 2 highest-budget projects in each `Status`.
+9. Find the top 2 highest-revenue records for each `Company`.
+10. Find the top 2 most popular technologies for each `Company`.
+
+**Type C — Running totals (SUM() OVER)**
+11. Calculate a running total of `Salary` ordered by `Employee_ID`.
+12. Calculate a running total of `ContractValue` ordered by `Client_ID`.
+13. Calculate a running total of `Budget` ordered by `Project_ID`.
+14. Calculate a running total of `Revenue` per `Company`, ordered by `Year`.
+15. Calculate a running total of `Popularity` ordered by `Technology_ID`.
+
+**Type D — Percentage of group total (SUM() OVER PARTITION BY)**
+16. Show each employee's `Salary` as a percentage of their department's total salary.
+17. Show each client's `ContractValue` as a percentage of their industry's total.
+18. Show each project's `Budget` as a percentage of its status group's total.
+19. Show each financial record's `Revenue` as a percentage of its company's total revenue.
+20. Show each technology's `Popularity` as a percentage of its company's total popularity.
+
+### Python
+
+**Type A — `.rank()` within groups**
+1. Rank employees within each `Department` by `Salary` descending using `.groupby()['Salary'].rank()`.
+2. Rank clients within each `Industry` by `ContractValue` descending.
+3. Rank projects within each `Status` by `Budget` descending.
+4. Rank financial records within each `Company` by `Revenue` descending.
+5. Rank technologies within each `Company` by `Popularity` descending.
+
+**Type B — Top N per group (`.groupby().apply()` or `sort_values` + `groupby().head()`)**
+6. Find the top 2 highest-paid employees in each `Department`.
+7. Find the top 2 highest-value clients in each `Industry`.
+8. Find the top 2 highest-budget projects in each `Status`.
+9. Find the top 2 highest-revenue records for each `Company`.
+10. Find the top 2 most popular technologies for each `Company`.
+
+**Type C — `.cumsum()` running totals**
+11. Calculate a running total of `Salary` ordered by `Employee_ID`.
+12. Calculate a running total of `ContractValue` ordered by `Client_ID`.
+13. Calculate a running total of `Budget` ordered by `Project_ID`.
+14. Calculate a running total of `Revenue` per `Company`, ordered by `Year`.
+15. Calculate a running total of `Popularity` ordered by `Technology_ID`.
+
+**Type D — Combining all 6 CSVs / reshaping**
+16. Load all 6 CSVs from the folder into a dictionary using glob (like your earlier script), then print the shape of each.
+17. Merge `employees`, `projects`, and `clients` together into one combined DataFrame (two merges).
+18. Use `pd.concat()` to stack `clients` and a filtered subset of `clients` back together and check the row count doubled correctly.
+19. Pivot `financials` so that `Year` becomes columns and `Revenue` is the value, with `Company` as the index (`pivot_table`).
+20. Show each technology's `Popularity` as a percentage of its company's total popularity using `.transform('sum')`.
+
+---
+
+## DAY 7 — CTEs & Dates / Cleaning, Dates & Visualization
+
+### SQL
+
+**Type A — CTEs (basic)**
+1. Write a CTE that computes average `Salary` per `Department`, then join it back to `Employees` to show each employee alongside their department's average.
+2. Write a CTE that computes total `ContractValue` per `Industry`, then join it back to `Clients`.
+3. Write a CTE that computes average `Budget` per `Status`, then join it back to `Projects`.
+4. Write a CTE that computes total `Revenue` per `Company`, then join it back to `Company_Financials`.
+5. Write a CTE that computes average `Popularity` per `Company`, then join it back to `Technologies`.
+
+**Type B — CTE + filtering (finding above-average per group)**
+6. Using a CTE, find employees earning more than 20% above their department's average salary.
+7. Using a CTE, find clients whose `ContractValue` is more than 20% above their industry's average.
+8. Using a CTE, find projects whose `Budget` is more than 20% above their status group's average.
+9. Using a CTE, find financial records more than 20% above their company's average revenue.
+10. Using a CTE, find technologies more than 20% above their company's average popularity.
+
+**Type C — Date functions (Employees.JoinDate)**
+11. Extract the `YEAR` from `JoinDate` for each employee.
+12. Find all employees who joined in the year `2020`.
+13. Calculate each employee's tenure in years using `DATEDIFF` from `JoinDate` to today.
+14. Find the earliest and latest `JoinDate` in the `Employees` table.
+15. Count how many employees joined per year.
+
+**Type D — Multi-concept combo (joins + aggregate + CASE)**
+16. Join `Employees` and `Projects`, then label each employee `'Overloaded'` if assigned to more than 3 projects, else `'Normal'`.
+17. Join `Clients` and `Projects`, then find total `Budget` per client, labeling clients `'Key Account'` if total exceeds 15000000.
+18. Join `Office_Locations` and `Company_Financials`, then rank companies by `Revenue` within each `Country`.
+19. Join `Projects` and `Technologies`, then find the most-used `Technology` per project `Status`.
+20. Combine all of the above: for each `Company`, show total `Revenue`, employee count, and average project `Budget` in one query.
+
+### Python
+
+**Type A — Merge + groupby combo (CTE equivalent)**
+1. Compute average `Salary` per `Department`, then merge it back onto `employees` as a new column.
+2. Compute total `ContractValue` per `Industry`, then merge it back onto `clients`.
+3. Compute average `Budget` per `Status`, then merge it back onto `projects`.
+4. Compute total `Revenue` per `Company`, then merge it back onto `financials`.
+5. Compute average `Popularity` per `Company`, then merge it back onto `technologies`.
+
+**Type B — Filtering with `.transform()` (above-average per group)**
+6. Find employees earning more than 20% above their department's average salary.
+7. Find clients whose `ContractValue` is more than 20% above their industry's average.
+8. Find projects whose `Budget` is more than 20% above their status group's average.
+9. Find financial records more than 20% above their company's average revenue.
+10. Find technologies more than 20% above their company's average popularity.
+
+**Type C — Date handling (`pd.to_datetime`)**
+11. Convert `JoinDate` in `employees` to a proper datetime column.
+12. Extract the year from `JoinDate` into a new column.
+13. Calculate each employee's tenure in years (today minus `JoinDate`).
+14. Find the earliest and latest `JoinDate` in the dataset.
+15. Count how many employees joined per year using `.dt.year.value_counts()`.
+
+**Type D — Combo: cleaning + visualization**
+16. Check `employees` for any inconsistent `Department` spellings (e.g., using `.unique()`) and standardize casing.
+17. Merge `clients` and `projects`, sum `Budget` per client, and plot a bar chart of the top 10 clients by total budget.
+18. Plot a bar chart of average `Salary` per `Department`.
+19. Plot a line chart of total `Revenue` per `Year` (across all companies) from `financials`.
+20. Build one summary DataFrame combining, per `Company`: total `Revenue`, employee count, and average project `Budget` — then export it to CSV.
+
+---
+
+**How to use this:** work through each day's 4 groups in order — the repetition within a group is intentional, so don't skip ahead until all 5 in a group feel easy. If you get stuck, tell me which question number and I'll walk through it with you rather than just handing over the answer.
