@@ -1,0 +1,384 @@
+# 7-Day Practice Plan — Excel + Python + SQL + Power BI
+### Using your Airbnb Antwerp dataset (5 tables) — 40 Qs/day (10 each), Day 1→7 goes Easy → Intermediate → Moderate → Hard
+
+**Tables you have:**
+- `Listings` — listing_id, name, property_type, room_type, accomodates, bathrooms_text, bedrooms, beds, amenities, latitude, longitude, host_id
+- `Hosts` — host_id, host_name, host_since, host_location, HostAgeYears, HasBio, BioLength
+- `Calendar` — listing_id, date, available, price, adjusted_price, minimum_nights, maximum_nights
+- `Reviews` — review_id, listing_id, date, reviewer_id, reviewer_name, comments, ReviewLength
+- `Amenities` — listing_id, amenity (long format — one row per amenity per listing)
+
+**Difficulty map:** Day 1–2 = Easy | Day 3–4 = Intermediate | Day 5–6 = Moderate | Day 7 = Hard
+**Python rule:** every day includes 1 visual (chart) built from that day's questions, and Day 1–2 lean extra hard on basics (syntax, pandas fundamentals) before Day 3 speeds up.
+
+---
+
+## DAY 1 — Easy (Foundations)
+
+**Excel (10)**
+1. Load `Dataset_Listings.csv` into a table (Ctrl+T). Name the table.
+2. Use `COUNTA` to count total listings.
+3. Use `AVERAGE` to find average `accomodates`.
+4. Use `MAX`/`MIN` on `bedrooms`.
+5. Use `COUNTIF` to count listings where `room_type = "Entire home/apt"`.
+6. Sort listings by `accomodates` descending.
+7. Filter listings where `bedrooms >= 2`.
+8. Use `LEN` on the `name` column to find title character count.
+9. Use `IF` to flag listings as "Large" if `accomodates > 4`, else "Small".
+10. Freeze header row and apply a table style.
+
+**Python (10) — basics-first**
+1. `import pandas as pd` and read `Dataset_Listings.csv`. Print `.shape` and `.head()`.
+2. Check data types with `.dtypes`; explain what each type means.
+3. Use `.isnull().sum()` to find missing values per column.
+4. Select just the `name` and `price`-relevant columns using `df[[...]]`.
+5. Filter rows where `room_type == "Private room"` using boolean indexing.
+6. Use `.value_counts()` on `room_type`.
+7. Compute `.mean()`, `.median()`, `.max()` of `accomodates`.
+8. Write a `for` loop that prints the first 5 listing names (practice plain Python, not just pandas).
+9. Create a new column `is_large = df['accomodates'] > 4`.
+10. **Visual (Day 1):** Bar chart of listing counts per `room_type` using `matplotlib`/`seaborn`.
+
+**SQL (10)** *(use SQLite/MySQL — import the CSVs as tables first)*
+1. `SELECT * FROM Listings LIMIT 10;`
+2. `SELECT COUNT(*) FROM Listings;`
+3. `SELECT DISTINCT room_type FROM Listings;`
+4. `SELECT name, accomodates FROM Listings ORDER BY accomodates DESC LIMIT 5;`
+5. `SELECT * FROM Listings WHERE bedrooms >= 2;`
+6. `SELECT AVG(accomodates) FROM Listings;`
+7. `SELECT COUNT(*) FROM Listings WHERE room_type = 'Entire home/apt';`
+8. `SELECT name FROM Listings WHERE bedrooms IS NULL;`
+9. `SELECT MIN(beds), MAX(beds) FROM Listings;`
+10. `SELECT property_type, COUNT(*) FROM Listings GROUP BY property_type;`
+
+**Power BI (10)**
+1. Import `Dataset_Listings.csv` via Get Data.
+2. Check data types in Power Query (fix any misread as text).
+3. Build a card visual showing total listing count.
+4. Build a bar chart: count of listings by `room_type`.
+5. Build a bar chart: count of listings by `property_type`.
+6. Add a slicer for `room_type`.
+7. Create a table visual with `name`, `accomodates`, `bedrooms`.
+8. Rename a column in Power Query for clarity.
+9. Sort the bar chart by value descending.
+10. Save the .pbix file and note one insight you saw.
+
+---
+
+## DAY 2 — Easy (continued)
+
+**Excel (10)**
+1. Load `Dataset_Calendar.csv`. Convert `date` to Date format.
+2. Use `AVERAGEIF` to get average `price` where `available = TRUE`.
+3. Use `COUNTIFS` — count rows where `available = TRUE` AND `minimum_nights <= 3`.
+4. Create a Pivot Table: average `price` by `listing_id` (top 10 rows only).
+5. Use `TEXT` function to reformat the `date` column.
+6. Use `VLOOKUP`/`XLOOKUP` to pull `room_type` from Listings into Calendar by `listing_id`.
+7. Conditional formatting: highlight `price` above 150.
+8. Use `SUMIF` to total `price` for one specific `listing_id`.
+9. Remove duplicate rows if any exist in Amenities.
+10. Add a calculated column: `price_per_night_check = adjusted_price - price`.
+
+**Python (10)**
+1. Read `Dataset_Calendar.csv`; convert `date` column with `pd.to_datetime()`.
+2. Filter rows where `available == True`.
+3. Group by `listing_id` and get `.mean()` of `price` — first 10 rows.
+4. Sort by `price` descending, show top 10.
+5. Use `.describe()` on `price` and `adjusted_price`.
+6. Create a column `price_gap = adjusted_price - price`.
+7. Use `.merge()` to join Calendar with Listings on `listing_id` (basic inner join).
+8. Count how many rows have `minimum_nights > 7`.
+9. Write a function `classify_price(p)` that returns "Budget"/"Mid"/"Premium", apply with `.apply()`.
+10. **Visual (Day 2):** Line chart or histogram of `price` distribution.
+
+**SQL (10)**
+1. `SELECT * FROM Calendar LIMIT 10;`
+2. `SELECT AVG(price) FROM Calendar WHERE available = 1;`
+3. `SELECT listing_id, AVG(price) FROM Calendar GROUP BY listing_id LIMIT 10;`
+4. `SELECT * FROM Calendar WHERE minimum_nights > 7;`
+5. `SELECT * FROM Calendar ORDER BY price DESC LIMIT 10;`
+6. Join: `SELECT c.listing_id, l.room_type, c.price FROM Calendar c JOIN Listings l ON c.listing_id = l.listing_id LIMIT 10;`
+7. `SELECT COUNT(*) FROM Calendar WHERE available = 0;`
+8. `SELECT listing_id, MAX(price) - MIN(price) AS price_range FROM Calendar GROUP BY listing_id LIMIT 10;`
+9. `SELECT * FROM Calendar WHERE price > adjusted_price;`
+10. `SELECT DATE(date) as d, COUNT(*) FROM Calendar GROUP BY d LIMIT 10;`
+
+**Power BI (10)**
+1. Import `Dataset_Calendar.csv`.
+2. Build relationship between Calendar and Listings on `listing_id` (Model view).
+3. Card visual: average `price` across all listings.
+4. Line chart: average `price` over `date`.
+5. Add a slicer for `available` (True/False).
+6. Table: `listing_id`, `price`, `adjusted_price`, sorted descending by `price`.
+7. Create a measure: `Avg Price = AVERAGE(Calendar[price])` using DAX.
+8. Create a measure: `Price Gap = SUM(Calendar[adjusted_price]) - SUM(Calendar[price])`.
+9. Add conditional formatting to the price table (color scale).
+10. Build a simple dashboard page combining 3 visuals from today.
+
+---
+
+## DAY 3 — Intermediate
+
+**Excel (10)**
+1. Pivot Table: average `price` by `room_type` (needs the Listings-Calendar merge — use VLOOKUP first).
+2. Use `COUNTIFS` with 2+ conditions across Calendar and a helper column.
+3. Use `INDEX/MATCH` instead of VLOOKUP to pull `host_name` from Hosts into Listings.
+4. Nested `IF` — classify listings into "Budget"/"Mid"/"Premium" based on price bands.
+5. Pivot chart: total listings per `property_type`.
+6. Use `TEXTSPLIT` or `LEFT/RIGHT` to parse something from `host_location` (city vs country).
+7. Use `SUMPRODUCT` to count listings meeting 2 conditions without helper columns.
+8. Build a Pivot Table: count of reviews per `listing_id` (from Reviews sheet), top 10.
+9. Use `AVERAGEIFS` with 2 conditions on Calendar.
+10. Create a dynamic named range or use structured table references in a formula.
+
+**Python (10)**
+1. Merge Listings + Hosts on `host_id`. Confirm row count matches Listings.
+2. Merge that result with Calendar on `listing_id` — check for row explosion, explain why row count grows.
+3. `groupby('room_type')['price'].mean()` — average price per room type.
+4. `groupby(['room_type','property_type']).size()` — multi-level grouping.
+5. Use `.sort_values()` + `.head(10)` to find 10 highest-priced available listings.
+6. String cleaning: extract city from `host_location` using `.str.split(',')`.
+7. Use `.apply(lambda x: ...)` to bucket `accomodates` into size categories.
+8. Count listings per host using `Listings.groupby('host_id').size()`, find hosts with >3 listings.
+9. Handle missing values: `.fillna()` on `bedrooms` with median.
+10. **Visual (Day 3):** Box plot of `price` by `room_type` (seaborn boxplot).
+
+**SQL (10)**
+1. `SELECT l.room_type, AVG(c.price) FROM Listings l JOIN Calendar c ON l.listing_id = c.listing_id GROUP BY l.room_type;`
+2. `SELECT h.host_name, COUNT(*) as num_listings FROM Hosts h JOIN Listings l ON h.host_id = l.host_id GROUP BY h.host_name ORDER BY num_listings DESC LIMIT 10;`
+3. `SELECT l.property_type, COUNT(*) FROM Listings l GROUP BY l.property_type HAVING COUNT(*) > 20;`
+4. Subquery: `SELECT * FROM Listings WHERE listing_id IN (SELECT listing_id FROM Calendar WHERE price > 200);`
+5. `SELECT r.listing_id, COUNT(*) as review_count FROM Reviews r GROUP BY r.listing_id ORDER BY review_count DESC LIMIT 10;`
+6. `SELECT l.room_type, MIN(c.price), MAX(c.price) FROM Listings l JOIN Calendar c ON l.listing_id=c.listing_id GROUP BY l.room_type;`
+7. `SELECT * FROM Listings WHERE host_id IN (SELECT host_id FROM Hosts WHERE HasBio = 'TRUE');`
+8. `SELECT AVG(BioLength) FROM Hosts GROUP BY host_location HAVING COUNT(*) > 5;` (may need LIMIT depending on engine)
+9. Three-table join: Listings + Hosts + Calendar, select `host_name`, `room_type`, `price` for 10 rows.
+10. `SELECT room_type, COUNT(*), AVG(accomodates) FROM Listings GROUP BY room_type;`
+
+**Power BI (10)**
+1. Import Hosts and Reviews; build relationships (Listings↔Hosts, Listings↔Reviews).
+2. Bar chart: average price by `room_type` (using the model relationships, no manual merge).
+3. Matrix visual: `room_type` (rows) x `property_type` (columns), values = count of listings.
+4. Create measure: `Review Count = COUNTROWS(Reviews)`.
+5. Create measure: `Avg Bio Length = AVERAGE(Hosts[BioLength])`.
+6. Top N filter: show top 10 hosts by number of listings (bar chart).
+7. Add a slicer for price range (if you built a price band column).
+8. Use "Drill down" on a bar chart (room_type → property_type).
+9. Add tooltips showing average price when hovering over a bar.
+10. Build a 3-visual dashboard: listings by room_type, avg price by room_type, top hosts.
+
+---
+
+## DAY 4 — Intermediate (continued)
+
+**Excel (10)**
+1. Pivot Table: total reviews per month (from Reviews `date` column — group by month).
+2. Use `COUNTIF` with wildcards on Amenities to find listings with "Wifi".
+3. Use Power Query (Excel) to merge Amenities long-format into a listing-level "amenity count" table.
+4. Use `TEXTJOIN` to combine `property_type` and `room_type` into one label.
+5. Build a Pivot Table: average `ReviewLength` by `listing_id`, top 10.
+6. Create a helper column classifying reviews as short/medium/long using nested IF.
+7. Use `RANK` function to rank listings by average price.
+8. Use `COUNTIFS` to count reviews in a specific date range.
+9. Build a 2-variable data table or scenario for price sensitivity (optional stretch).
+10. Clean the `comments` column: use `TRIM` and `SUBSTITUTE` to remove extra spaces/line breaks.
+
+**Python (10)**
+1. Read Amenities; use `.groupby('listing_id')['amenity'].count()` to get amenity count per listing.
+2. Merge amenity counts into Listings; check correlation between amenity count and `accomodates`.
+3. Read Reviews; convert `date` to datetime, extract `year` and `month` columns.
+4. `groupby('month')['review_id'].count()` — reviews per month trend.
+5. Find listings containing "Wifi" in amenities using `.str.contains()`.
+6. Use `.pivot_table()` to build room_type x property_type count matrix (pandas equivalent of Excel pivot).
+7. Compute correlation: `df[['accomodates','bedrooms','beds']].corr()`.
+8. Use `.groupby('host_id').agg({'listing_id':'count', 'price':'mean'})` — combined aggregation.
+9. Write a function that takes a listing_id and returns its average review length; apply across a sample of IDs.
+10. **Visual (Day 4):** Line chart of monthly review counts over time (trend).
+
+**SQL (10)**
+1. `SELECT strftime('%Y-%m', date) as month, COUNT(*) FROM Reviews GROUP BY month ORDER BY month;`
+2. `SELECT listing_id, COUNT(*) as amenity_count FROM Amenities GROUP BY listing_id ORDER BY amenity_count DESC LIMIT 10;`
+3. `SELECT * FROM Amenities WHERE amenity LIKE '%Wifi%';`
+4. `SELECT l.name, a.amenity_count FROM Listings l JOIN (SELECT listing_id, COUNT(*) as amenity_count FROM Amenities GROUP BY listing_id) a ON l.listing_id = a.listing_id ORDER BY amenity_count DESC LIMIT 10;`
+5. `SELECT listing_id, AVG(ReviewLength) FROM Reviews GROUP BY listing_id ORDER BY AVG(ReviewLength) DESC LIMIT 10;`
+6. Window-style ranking (if engine supports it): `SELECT listing_id, price, RANK() OVER (ORDER BY price DESC) as rnk FROM Calendar LIMIT 10;`
+7. `SELECT host_id, COUNT(*) as listing_count, AVG(accomodates) FROM Listings GROUP BY host_id HAVING listing_count > 2;`
+8. `SELECT room_type, property_type, COUNT(*) FROM Listings GROUP BY room_type, property_type ORDER BY room_type;`
+9. `SELECT * FROM Reviews WHERE comments LIKE '%clean%';`
+10. `SELECT listing_id, COUNT(*) as reviews, AVG(ReviewLength) as avg_len FROM Reviews GROUP BY listing_id HAVING reviews > 5;`
+
+**Power BI (10)**
+1. Add Amenities table; build relationship to Listings on `listing_id`.
+2. Create measure: `Amenity Count = COUNTROWS(RELATEDTABLE(Amenities))` or via summarize.
+3. Line chart: reviews over time (by month, from Reviews `date`).
+4. Create a calculated column extracting `Month` and `Year` from Reviews date in Power Query/DAX.
+5. Matrix: `room_type` x average amenity count.
+6. Add a filter/slicer for date range on the review trend chart.
+7. Create a KPI visual: current month reviews vs previous month.
+8. Use "Top N" filter to show 10 listings with most amenities.
+9. Add a scatter chart: `accomodates` vs `price` (from Calendar, averaged per listing).
+10. Refine dashboard: combine amenity, review trend, and price visuals on one page.
+
+---
+
+## DAY 5 — Moderate
+
+**Excel (10)**
+1. Build a full Pivot Table dashboard: room_type, avg price, review count, amenity count — combining 3 source tables via lookups.
+2. Use `SUMPRODUCT` with multiple array conditions for a complex count.
+3. Use `IFERROR` wrapped around VLOOKUP/XLOOKUP for clean handling of missing host data.
+4. Create a "host tenure" column: years since `host_since` using `DATEDIF` or `YEARFRAC`.
+5. Use `COUNTIFS` across 3 conditions (room_type, price range, availability).
+6. Build a chart combining bar (avg price) + line (review count) on one axis pair.
+7. Use array formula or `FILTER` function to extract listings meeting complex criteria.
+8. Use `UNIQUE` + `SORT` functions to list distinct amenities.
+9. Build what-if analysis: if price increased 10%, estimate revenue impact (needs assumption column).
+10. Create a summary sheet with 5 KPIs pulled via formulas from other sheets.
+
+**Python (10)**
+1. Build one merged master dataframe: Listings + Hosts + Calendar (aggregated) + amenity counts + review counts.
+2. Compute `host_tenure_years` from `host_since` using `pd.to_datetime()` and date math.
+3. Use `.pivot_table(index='room_type', columns='property_type', values='price', aggfunc='mean')`.
+4. Identify outlier prices using IQR method (`Q1`, `Q3`, `1.5*IQR` rule).
+5. Use `.corr()` and interpret which numeric features relate most to `price`.
+6. Group hosts by tenure buckets (0–2yr, 2–5yr, 5+yr) and compare avg listing price.
+7. Use `.rank()` to rank listings within each `room_type` by price.
+8. Write a reusable function `summarize_listing(listing_id)` returning price, reviews, amenities as a dict.
+9. Handle and document at least 2 data quality issues you find (nulls, inconsistent text, duplicates).
+10. **Visual (Day 5):** Multi-panel plot (`plt.subplots`) — e.g., price distribution + amenity count vs price scatter, side by side.
+
+**SQL (10)**
+1. Multi-CTE query: `WITH amenity_counts AS (...), review_counts AS (...) SELECT l.name, a.cnt, r.cnt FROM Listings l LEFT JOIN amenity_counts a ON ... LEFT JOIN review_counts r ON ...`
+2. `SELECT *, (julianday('now') - julianday(host_since))/365 as tenure_years FROM Hosts LIMIT 10;`
+3. Window function: `SELECT listing_id, price, AVG(price) OVER (PARTITION BY listing_id) as avg_p FROM Calendar LIMIT 10;`
+4. `SELECT room_type, price, NTILE(4) OVER (ORDER BY price) as quartile FROM Calendar c JOIN Listings l ON c.listing_id=l.listing_id LIMIT 20;` (quartile bucketing)
+5. Self-referencing subquery to find listings priced above their `room_type` average.
+6. `SELECT host_id, COUNT(DISTINCT listing_id) FROM Listings GROUP BY host_id HAVING COUNT(DISTINCT listing_id) > 1;`
+7. Combine 4 tables (Listings, Hosts, Calendar, Reviews) into one summary query with GROUP BY and multiple JOINs.
+8. Use `CASE WHEN` to bucket prices into Budget/Mid/Premium directly in SQL.
+9. `SELECT room_type, COUNT(*) as n, AVG(price) as avg_price, AVG(price) - (SELECT AVG(price) FROM Calendar) as diff_from_overall FROM Listings l JOIN Calendar c ON l.listing_id=c.listing_id GROUP BY room_type;`
+10. Find duplicate rows (if any) in Amenities using `GROUP BY ... HAVING COUNT(*) > 1`.
+
+**Power BI (10)**
+1. Build a full data model connecting all 5 tables correctly (check star-schema shape).
+2. DAX measure: `Host Tenure = DATEDIFF(Hosts[host_since], TODAY(), YEAR)`.
+3. DAX measure: `Revenue Estimate = SUM(Calendar[price]) * 0.9` (occupancy assumption) — document your assumption.
+4. Build a calculated column bucketing price into Budget/Mid/Premium using DAX `SWITCH`.
+5. Matrix visual with price buckets x room_type, values = count.
+6. Combo chart: bar (avg price) + line (review count) by room_type.
+7. Use quick measures or DAX for a ranking (`RANKX`) of listings by price.
+8. Build a bookmark or page-level filter toggling between "All listings" and "Available only".
+9. Add a tooltip page showing host details when hovering a listing bar.
+10. Publish/export dashboard as PDF and note 3 business insights.
+
+---
+
+## DAY 6 — Moderate (continued)
+
+**Excel (10)**
+1. Build a fully cross-linked dashboard sheet (slicers controlling multiple pivot tables/charts).
+2. Use `XLOOKUP` with approximate match for price-band lookup table.
+3. Create a "host quality score" formula combining tenure, bio length, and listing count (weighted).
+4. Use `GROUPBY`/Power Query grouping to replicate SQL-style GROUP BY + HAVING logic.
+5. Build a heat-map style conditional formatting across a price-by-month pivot.
+6. Use `TEXTSPLIT`/array formulas to parse amenities text if stored as one string per listing.
+7. Build a forecast (Excel's `FORECAST.LINEAR`) on monthly review counts.
+8. Use `SUMIFS` + `OFFSET`/`INDEX` for a dynamic rolling average.
+9. Audit the workbook for circular references or broken formulas; document fixes.
+10. Write 3 written insights supported by specific cell references/formulas.
+
+**Python (10)**
+1. Build a rolling 7-day or monthly average of `price` per listing using `.rolling()`.
+2. Detect duplicate reviews (same reviewer_id + listing_id + date) with `.duplicated()`.
+3. Build a "host quality score" as a weighted combination of tenure, listing count, bio length — normalize with min-max scaling.
+4. Use `pd.cut()` to bucket `price` into custom bins and label them.
+5. Perform a groupby with multiple aggregations: `.agg({'price':['mean','std'], 'review_id':'count'})`.
+6. Merge amenity counts + review counts + price into one table, then rank composite "listing score."
+7. Write a function with error handling (`try/except`) that safely computes tenure even with bad dates.
+8. Use `.query()` method as an alternative filtering syntax and compare readability to boolean indexing.
+9. Export your cleaned master dataframe to a new CSV (`to_csv`) — practice the full pipeline start to finish.
+10. **Visual (Day 6):** Heatmap (seaborn `heatmap`) of correlation matrix across numeric columns, or price-by-month heatmap.
+
+**SQL (10)**
+1. `SELECT listing_id, date, price, AVG(price) OVER (PARTITION BY listing_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) as rolling_avg FROM Calendar LIMIT 20;`
+2. Find duplicate reviews: `SELECT listing_id, reviewer_id, date, COUNT(*) FROM Reviews GROUP BY listing_id, reviewer_id, date HAVING COUNT(*) > 1;`
+3. Build a composite score query combining tenure (Hosts), listing count, and review count using CTEs.
+4. `SELECT *, CASE WHEN price < 75 THEN 'Budget' WHEN price < 150 THEN 'Mid' ELSE 'Premium' END as band FROM Calendar LIMIT 20;`
+5. Correlated subquery: listings priced above their own host's average listing price.
+6. Use `LAG()`/`LEAD()` window functions on Calendar ordered by date per listing to see day-over-day price change.
+7. Full pipeline query: CTE for amenity_count, CTE for review_count, CTE for avg_price, final SELECT joining all three with Listings.
+8. `SELECT room_type, price_band, COUNT(*) FROM (subquery with CASE) GROUP BY room_type, price_band;`
+9. Percent-of-total: `SELECT room_type, COUNT(*)*100.0/(SELECT COUNT(*) FROM Listings) as pct FROM Listings GROUP BY room_type;`
+10. Write and comment a query you'd hand to a teammate — include explanation as SQL comments.
+
+**Power BI (10)**
+1. Build a composite "Host Quality Score" measure combining 3 normalized metrics (DAX).
+2. Build a price-band x month heatmap-style matrix (conditional formatting = color scale).
+3. Create a rolling average measure using `AVERAGEX` + `DATESINPERIOD`.
+4. Build a "day-over-day price change" measure using `CALCULATE` + time intelligence.
+5. Add a what-if parameter (e.g., occupancy rate slider) feeding into the revenue measure.
+6. Use `RANKX` to rank hosts by composite score, show top 10 in a table.
+7. Build a decomposition tree on price, breaking down by room_type → property_type → host tenure bucket.
+8. Add row-level tooltips explaining each KPI's calculation (documentation habit).
+9. Test model performance: check if any visual is slow, simplify a DAX measure if needed.
+10. Write 3 insights + 1 recommendation slide-style summary within the report.
+
+---
+
+## DAY 7 — Hard (capstone day)
+
+**Excel (10)**
+1. Build one master "Executive Summary" sheet pulling live figures from all other sheets via formulas (no hardcoded numbers).
+2. Recreate the SQL composite score/ranking logic entirely with Excel formulas (no Power Query).
+3. Build a dynamic dashboard where one slicer/dropdown filters 4+ visuals/pivots simultaneously.
+4. Use `LET` and `LAMBDA` (if available) to build a custom reusable formula, e.g., a price-band classifier.
+5. Build a sensitivity table (data table) showing revenue at different occupancy % and price change %.
+6. Audit and fully document every formula on the summary sheet (in-cell comments or a legend).
+7. Identify and manually fix 3 real data quality issues in the raw files (document what/why).
+8. Build a "top 5 hosts" leaderboard combining tenure, listings, avg review length, price — fully formula-driven.
+9. Time yourself: rebuild the Day 5 Q1 dashboard from scratch without notes.
+10. Present (write out) 5 business recommendations backed by specific formulas/cells.
+
+**Python (10)**
+1. Build a complete end-to-end script: load all 5 CSVs → clean → merge → engineer features → export final master table.
+2. Engineer at least 5 new features (tenure, amenity count, review count, price band, host quality score).
+3. Write a function-based pipeline (multiple functions, each doing one step) instead of one long script — practice modular code.
+4. Use `groupby().apply()` with a custom function for a calculation pandas built-ins can't do directly.
+5. Identify and handle at least 3 data quality issues programmatically (not manually), with comments explaining each.
+6. Perform a correlation/outlier analysis and write 3 data-backed conclusions as code comments or printed output.
+7. Simulate the SQL window-function tasks (rolling avg, rank, lag) using pandas (`.rolling()`, `.rank()`, `.shift()`).
+8. Time/profile your script informally — note which step is slowest and why.
+9. Write basic error handling for the whole pipeline (what if a file is missing/malformed?).
+10. **Visual (Day 7):** Build a 2x2 dashboard-style figure (`plt.subplots(2,2)`) combining 4 of the week's charts into one summary image.
+
+**SQL (10)**
+1. Write one large query combining CTEs for amenity_count, review_count, price stats, host tenure — final SELECT with all joined.
+2. Recreate the "host quality score" ranking entirely in SQL using `RANKX`-equivalent (`RANK()`/`DENSE_RANK()`).
+3. Use window functions to compute each listing's price percentile within its room_type.
+4. Write a query answering: "which host_location produces the highest-rated (longest reviews) listings?"
+5. Write a query detecting anomalies: listings with price 2x+ their room_type average.
+6. Build a query with 3+ levels of nested subqueries/CTEs — document each step with comments.
+7. Write a query that would power a Power BI matrix (room_type x price_band x month) directly.
+8. Optimize one of your Day 5/6 slow queries — explain what you changed and why.
+9. Write a query identifying "at-risk" hosts (low review count, few listings, recent tenure) — combine multiple conditions.
+10. Self-review: pick your best query from the week, rewrite it more efficiently/readably.
+
+**Power BI (10)**
+1. Build a full multi-page report: Overview, Pricing, Hosts, Reviews — each with 3–4 visuals.
+2. Recreate every prior day's key measure as clean, documented DAX in one final model.
+3. Build a working what-if scenario page (occupancy % and price change sliders affecting revenue KPI).
+4. Add drill-through: click a host in one page to jump to a detail page filtered to that host.
+5. Build a decomposition tree or key influencers visual on `price`.
+6. Polish formatting: consistent color theme, titles, and a clear navigation bar/buttons.
+7. Add bookmarks for 2 different "views" of the dashboard (e.g., All vs Available Only).
+8. Write DAX measure documentation (a text box or table explaining each key measure).
+9. Time yourself: rebuild your Day 1 dashboard page in under 10 minutes using what you've learned.
+10. Final write-up: 5 insights + 3 recommendations, presented as if to a manager.
+
+---
+
+## How to use this
+- Do the 4 tools back-to-back each day, or split across morning/evening — order doesn't matter, just hit all 40.
+- Don't look up "the answer" first — attempt, get stuck, *then* check docs/ask. That's where retention happens.
+- Keep a single running notes file (or one Excel tab) logging: what tripped you up each day → review those on Day 7 morning before the capstone.
+- If a question needs a column that doesn't exist yet (e.g., price band, tenure), that's intentional — building it *is* the exercise.
