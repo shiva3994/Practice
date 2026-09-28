@@ -39,6 +39,10 @@ FROM Listings;
 
 -- 7. SELECT COUNT(*) FROM Listings WHERE room_type = 'Entire home/apt';
 
+SELECT
+	COUNT(*) AS count_of_apt
+FROM Listings L
+WHERE room_type = 'Entire home/apt';
 
 -- 8. SELECT name FROM Listings WHERE bedrooms IS NULL;
 
