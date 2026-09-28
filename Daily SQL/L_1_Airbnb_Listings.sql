@@ -46,6 +46,10 @@ WHERE room_type = 'Entire home/apt';
 
 -- 8. SELECT name FROM Listings WHERE bedrooms IS NULL;
 
+SELECT
+	name
+FROM Listings
+WHERE bedrooms IS NULL;
 
 -- 9. SELECT MIN(beds), MAX(beds) FROM Listings;
 
