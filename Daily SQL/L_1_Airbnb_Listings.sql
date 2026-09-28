@@ -60,3 +60,8 @@ FROM Listings;
 
 -- 10. SELECT property_type, COUNT(*) FROM Listings GROUP BY property_type;
 
+SELECT
+	property_type,
+	COUNT(*) AS count_type
+FROM Listings
+GROUP BY property_type;
