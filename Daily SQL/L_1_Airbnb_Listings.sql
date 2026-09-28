@@ -27,7 +27,9 @@ ORDER BY accomodates DESC;
 
 -- 5. SELECT * FROM Listings WHERE bedrooms >= 2;
 
-
+SELECT*
+FROM Listings
+WHERE bedrooms >= 2;
 
 -- 6. SELECT AVG(accomodates) FROM Listings;
 
