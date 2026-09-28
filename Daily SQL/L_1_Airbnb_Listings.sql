@@ -13,6 +13,9 @@ FROM Listings;
 
 -- 3. SELECT DISTINCT room_type FROM Listings;
 
+SELECT
+	DISTINCT(room_type) AS distinct_room_type
+FROM Listings;
 
 -- 4. SELECT name, accomodates FROM Listings ORDER BY accomodates DESC LIMIT 5;
 
