@@ -2,6 +2,8 @@ USE L_1_Airbnb_Listings;
 
 -- 1. SELECT * FROM Listings LIMIT 10;
 
+SELECT TOP 10 *
+FROM Listings;
 
 -- 2. SELECT COUNT(*) FROM Listings;
 
