@@ -19,8 +19,14 @@ FROM Listings;
 
 -- 4. SELECT name, accomodates FROM Listings ORDER BY accomodates DESC LIMIT 5;
 
+SELECT TOP 5
+	name,
+	accomodates
+FROM Listings
+ORDER BY accomodates DESC;
 
 -- 5. SELECT * FROM Listings WHERE bedrooms >= 2;
+
 
 
 -- 6. SELECT AVG(accomodates) FROM Listings;
