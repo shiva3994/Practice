@@ -7,6 +7,9 @@ FROM Listings;
 
 -- 2. SELECT COUNT(*) FROM Listings;
 
+SELECT
+	COUNT(*) AS total_count
+FROM Listings;
 
 -- 3. SELECT DISTINCT room_type FROM Listings;
 
