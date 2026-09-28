@@ -33,6 +33,9 @@ WHERE bedrooms >= 2;
 
 -- 6. SELECT AVG(accomodates) FROM Listings;
 
+SELECT
+	AVG(accomodates) AS avg_accomodation
+FROM Listings;
 
 -- 7. SELECT COUNT(*) FROM Listings WHERE room_type = 'Entire home/apt';
 
