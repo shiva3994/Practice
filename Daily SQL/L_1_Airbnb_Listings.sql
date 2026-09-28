@@ -53,6 +53,10 @@ WHERE bedrooms IS NULL;
 
 -- 9. SELECT MIN(beds), MAX(beds) FROM Listings;
 
+SELECT
+	MIN(beds) AS minimum_beds,
+	MAX(beds) as maximum_beds
+FROM Listings;
 
 -- 10. SELECT property_type, COUNT(*) FROM Listings GROUP BY property_type;
 
