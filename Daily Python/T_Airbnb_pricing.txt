@@ -28,28 +28,9 @@
 10. Freeze header row and apply a table style.
 
 **Python (10) — basics-first**
-1. `import pandas as pd` and read `Dataset_Listings.csv`. Print `.shape` and `.head()`.
-2. Check data types with `.dtypes`; explain what each type means.
-3. Use `.isnull().sum()` to find missing values per column.
-4. Select just the `name` and `price`-relevant columns using `df[[...]]`.
-5. Filter rows where `room_type == "Private room"` using boolean indexing.
-6. Use `.value_counts()` on `room_type`.
-7. Compute `.mean()`, `.median()`, `.max()` of `accomodates`.
-8. Write a `for` loop that prints the first 5 listing names (practice plain Python, not just pandas).
-9. Create a new column `is_large = df['accomodates'] > 4`.
-10. **Visual (Day 1):** Bar chart of listing counts per `room_type` using `matplotlib`/`seaborn`.
 
 **SQL (10)** *(use SQLite/MySQL — import the CSVs as tables first)*
-1. `SELECT * FROM Listings LIMIT 10;`
-2. `SELECT COUNT(*) FROM Listings;`
-3. `SELECT DISTINCT room_type FROM Listings;`
-4. `SELECT name, accomodates FROM Listings ORDER BY accomodates DESC LIMIT 5;`
-5. `SELECT * FROM Listings WHERE bedrooms >= 2;`
-6. `SELECT AVG(accomodates) FROM Listings;`
-7. `SELECT COUNT(*) FROM Listings WHERE room_type = 'Entire home/apt';`
-8. `SELECT name FROM Listings WHERE bedrooms IS NULL;`
-9. `SELECT MIN(beds), MAX(beds) FROM Listings;`
-10. `SELECT property_type, COUNT(*) FROM Listings GROUP BY property_type;`
+
 
 **Power BI (10)**
 1. Import `Dataset_Listings.csv` via Get Data.
