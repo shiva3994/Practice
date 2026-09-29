@@ -16,16 +16,6 @@
 ## DAY 1 — Easy (Foundations)
 
 **Excel (10)**
-1. Load `Dataset_Listings.csv` into a table (Ctrl+T). Name the table.
-2. Use `COUNTA` to count total listings.
-3. Use `AVERAGE` to find average `accomodates`.
-4. Use `MAX`/`MIN` on `bedrooms`.
-5. Use `COUNTIF` to count listings where `room_type = "Entire home/apt"`.
-6. Sort listings by `accomodates` descending.
-7. Filter listings where `bedrooms >= 2`.
-8. Use `LEN` on the `name` column to find title character count.
-9. Use `IF` to flag listings as "Large" if `accomodates > 4`, else "Small".
-10. Freeze header row and apply a table style.
 
 **Python (10) — basics-first**
 
