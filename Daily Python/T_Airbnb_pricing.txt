@@ -31,7 +31,6 @@
 
 **SQL (10)** *(use SQLite/MySQL — import the CSVs as tables first)*
 
-
 **Power BI (10)**
 1. Import `Dataset_Listings.csv` via Get Data.
 2. Check data types in Power Query (fix any misread as text).
